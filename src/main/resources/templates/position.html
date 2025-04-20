@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Aircraft Positions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 30px 0 20px;
+            color: #333;
+        }
+
+        table {
+            width: 95%;
+            margin: 0 auto 40px;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            color: #333;
+        }
+
+        th {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Live Aircraft Positions</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Callsign</th>
+        <th>Reg</th>
+        <th>Flight No</th>
+        <th>Type</th>
+        <th>Altitude (ft)</th>
+        <th>Speed (kt)</th>
+        <th>Heading (°)</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>On Ground?</th>
+        <th>Last Seen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="aircraft : ${aircrafts}">
+        <td th:text="${aircraft.id}">1</td>
+        <td th:text="${aircraft.callsign}">CS</td>
+        <td th:text="${aircraft.reg}">REG</td>
+        <td th:text="${aircraft.flightno}">FN</td>
+        <td th:text="${aircraft.type}">A320</td>
+        <td th:text="${aircraft.altitude}">32000</td>
+        <td th:text="${aircraft.speed}">450</td>
+        <td th:text="${aircraft.heading}">180</td>
+        <td th:text="${aircraft.lat}">22.57</td>
+        <td th:text="${aircraft.lon}">88.36</td>
+        <td th:text="${aircraft.onGround ? 'Yes' : 'No'}">No</td>
+        <td th:text="${#dates.format(aircraft.lastSeenTime, 'yyyy-MM-dd HH:mm:ss')}">2025-04-09 12:00:00</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="footer">
+    <p>Powered by Spring Boot & Thymeleaf ✈️</p>
+</div>
+
+</body>
+</html>
