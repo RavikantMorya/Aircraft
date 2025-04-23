@@ -1,19 +1,21 @@
 package com.rmaurya.Aircraft;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
 
-@Entity
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Aircraft {
+public class Aircraft implements Persistable<Long> {
     @Id
     private Long id;
     private String callsign, squawk, reg, flightno, route, type, category;
@@ -37,4 +39,15 @@ public class Aircraft {
     private Instant posUpdateTime;
     @JsonProperty("bds40_seen_time")
     private Instant bds40SeenTime;
+
+    @Transient
+    @JsonProperty("new_aircraft")
+    private boolean newAircraft;
+    @Override
+    @Transient
+    public boolean isNew() {
+        return this.newAircraft || id == null;
+    }
+
+
 }
