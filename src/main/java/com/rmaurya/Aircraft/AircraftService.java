@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 @RequiredArgsConstructor
 public class AircraftService {
+
     private final AircraftRepository aircraftRepository;
     private final WebClient webClient = WebClient.create("http://localhost:7369/aircraft");
     //save aircraft position
@@ -22,6 +23,7 @@ public class AircraftService {
 
     //get aircraft position
     public Iterable<Aircraft> getAircraftPosition() {
+        saveAircraftPosition();
         return aircraftRepository.findAll();
     }
 }
